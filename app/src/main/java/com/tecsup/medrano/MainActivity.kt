@@ -11,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.tecsup.medrano.navigation.AppNavGraph
 import com.tecsup.medrano.ui.theme.Medrano_ProductosAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -19,6 +20,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             Medrano_ProductosAppTheme {
+                AppNavGraph()
             }
         }
     }
