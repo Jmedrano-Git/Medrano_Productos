@@ -27,6 +27,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.tecsup.medrano.data.model.Product
 
@@ -42,94 +43,80 @@ fun ProductCard(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp, vertical = 8.dp),
-        shape = RoundedCornerShape(12.dp),
-        elevation = CardDefaults.cardElevation(1.dp)
+        shape = RoundedCornerShape(16.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 3.dp)
     ) {
         Column(
             modifier = Modifier
-                .padding(16.dp)
+                .fillMaxWidth()
+                .padding(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
+
+            // Código
+            Text(
+                text = "Código: ${product.codigo}",
+                style = MaterialTheme.typography.labelMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                textAlign = TextAlign.Center
+            )
+
+            Spacer(modifier = Modifier.height(6.dp))
 
             // Nombre
             Text(
                 text = product.nombre,
                 style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold, // celeste oscuro
+                textAlign = TextAlign.Center
             )
 
-            Spacer(modifier = Modifier.height(4.dp))
+            Spacer(modifier = Modifier.height(6.dp))
 
-            // Estado
+            // Estado y categoría
             Text(
-                text = product.estado,
-                style = MaterialTheme.typography.bodySmall,
+                text = "${product.estado} • ${product.categoria}",
+                style = MaterialTheme.typography.labelSmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                textAlign = TextAlign.Center
+            )
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            // Descripción
+            Text(
+                text = product.descripcion,
+                style = MaterialTheme.typography.bodyMedium,
+                textAlign = TextAlign.Center
+            )
+
+            Spacer(modifier = Modifier.height(10.dp))
+
+            // Precio y cantidad
+            Text(
+                text = "Precio: S/ ${String.format("%.2f", product.precio)}",
+                style = MaterialTheme.typography.bodyMedium,
+                fontWeight = FontWeight.SemiBold,
+                textAlign = TextAlign.Center,
                 color = MaterialTheme.colorScheme.primary
             )
 
-            Spacer(modifier = Modifier.height(8.dp))
-
-            // Descripcion
             Text(
-                text = product.descripcion,
-                style = MaterialTheme.typography.bodyMedium
+                text = "Cantidad: ${product.cantidad} unidades",
+                style = MaterialTheme.typography.bodyMedium,
+                textAlign = TextAlign.Center
             )
-
-            Spacer(modifier = Modifier.height(8.dp))
-
-            // Codigo y categoria
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Text(
-                    text = "Código: ${product.codigo}",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-
-                Text(
-                    text = product.categoria,
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-            }
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            // precio y cantidad
+            // Botones
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Column {
-                    Text(text = "Precio", style = MaterialTheme.typography.bodySmall)
-                    Text(
-                        text = "S/ ${String.format("%.2f", product.precio)}",
-                        style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.Bold
-                    )
-                }
-
-                Column(horizontalAlignment = Alignment.End) {
-                    Text(text = "Cantidad", style = MaterialTheme.typography.bodySmall)
-                    Text(
-                        text = "${product.cantidad} unid.",
-                        style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.Bold
-                    )
-                }
-            }
-
-            Spacer(modifier = Modifier.height(8.dp))
-
-            // Los botones
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.End
+                horizontalArrangement = Arrangement.Center
             ) {
                 IconButton(onClick = onEdit) {
                     Icon(
-                        Icons.Default.Edit,
+                        imageVector = Icons.Default.Edit,
                         contentDescription = "Editar",
                         tint = MaterialTheme.colorScheme.primary
                     )
@@ -137,7 +124,7 @@ fun ProductCard(
 
                 IconButton(onClick = { showDeleteDialog = true }) {
                     Icon(
-                        Icons.Default.Delete,
+                        imageVector = Icons.Default.Delete,
                         contentDescription = "Eliminar",
                         tint = MaterialTheme.colorScheme.error
                     )
@@ -146,17 +133,19 @@ fun ProductCard(
         }
     }
 
-    // ===== DIÁLOGO =====
+    // Confirmación
     if (showDeleteDialog) {
         AlertDialog(
             onDismissRequest = { showDeleteDialog = false },
-            title = { Text("Eliminar producto") },
-            text = { Text("¿Seguro que deseas eliminar este producto?") },
+            title = { Text("Eliminar Producto") },
+            text = { Text("¿Estás seguro de que deseas eliminar este producto?") },
             confirmButton = {
-                TextButton(onClick = {
-                    showDeleteDialog = false
-                    onDelete()
-                }) {
+                TextButton(
+                    onClick = {
+                        showDeleteDialog = false
+                        onDelete()
+                    }
+                ) {
                     Text("Eliminar", color = MaterialTheme.colorScheme.error)
                 }
             },

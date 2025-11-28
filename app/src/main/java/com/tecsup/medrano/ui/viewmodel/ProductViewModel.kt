@@ -39,10 +39,6 @@ class ProductViewModel(
         )
     }
 
-    fun refresh() {
-        startListeningProducts()
-    }
-
     fun getCurrentUserEmail(): String {
         return FirebaseAuth.getInstance().currentUser?.email ?: "Usuario"
     }
