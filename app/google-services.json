@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "121069383494",
+    "project_id": "mis-productos-c2577",
+    "storage_bucket": "mis-productos-c2577.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:121069383494:android:347599b1c3ed6c56aaff47",
+        "android_client_info": {
+          "package_name": "com.tecsup.medrano"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWoCIT92RQWUsDf8imgBnxM9iRA_q88_Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
